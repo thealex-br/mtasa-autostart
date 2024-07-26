@@ -1,0 +1,8 @@
+<meta>
+	<info name="autostart" author="thealex-br" type="script" version="1.0.0"/>
+    <script src="server.lua" type="server" />
+    <aclrequest>
+		<right name="function.startResource" access="true" />
+		<right name="general.ModifyOtherObjects" access="true" />
+	</aclrequest>
+</meta>

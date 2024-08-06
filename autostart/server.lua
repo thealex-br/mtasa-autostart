@@ -1,31 +1,31 @@
-function getResourcePriority(theResource)
-    local meta = xmlLoadFile(":"..getResourceName(theResource).."/meta.xml", true)
-    if not meta then
+function getResourceProperty(theResource, propertyName)
+    local xml = xmlLoadFile(":"..getResourceName(theResource).."/meta.xml", true)
+    if not xml then
         return false
     end
 
-    local child = xmlFindChild(meta, 'download_priority_group', 0)
-    local value = child and xmlNodeGetValue(child) or "0"
+    local child = xmlFindChild(xml, propertyName, 0)
+    local value = child and xmlNodeGetValue(child) or false
 
-    xmlUnloadFile(meta)
-    return tonumber(value)
+    xmlUnloadFile(xml)
+    return value
 end
 
-function init()
+function startResources()
     local resources, toStart = getResources(), {}
 
-    for i=1, #resources do
-        local resource = resources[i]
-        local priority = getResourcePriority(resource)
-        if priority and getResourceInfo(resource, "start") == "true" then
-            table.insert(toStart, {priority=priority, resource=resource})
+    for k, v in ipairs(resources) do
+        local start = getResourceProperty(v, "autostart")
+        local order = getResourceProperty(v, "download_priority_group") or "0"
+        if start == "true" then
+            table.insert(toStart, {p=tonumber(order), r=v})
         end
     end
 
-    table.sort(toStart, function(a, b) return a.priority > b.priority end)
+    table.sort(toStart, function(a, b) return a.p > b.p end)
 
-    for i=1, #toStart do
-        startResource(toStart[1].resource, true)
+    for k, v in ipairs(toStart) do
+        startResource(v.r, true)
     end
 end
-init()
+addEventHandler("onResourceStart", resourceRoot, startResources)

@@ -1,8 +1,7 @@
-# simple autostart
+## AutoStart
+a ~~new~~ way to start your server's resources without changing the `mtaserver.conf` file ™️
 
-how to use?
-just place `<autostart>true</autostart>` inside your meta.xml file 
-
+### how to use?
 ```xml
 <meta>
 	<autostart>true</autostart>
@@ -10,5 +9,3 @@ just place `<autostart>true</autostart>` inside your meta.xml file
 	...
 </meta>
 ```
-
-yeah that's all

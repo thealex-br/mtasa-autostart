@@ -1,10 +1,14 @@
 # simple autostart
 
 how to use?
-just place `start="true"` inside your meta.xml file 
+just place `<autostart>true</autostart>` inside your meta.xml file 
 
 ```xml
-<info start="true" name="resourceName" author="authorName" type="script" version="1.0.0"/>
+<meta>
+	<autostart>true</autostart>
+
+	...
+</meta>
 ```
 
 yeah that's all
